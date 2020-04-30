@@ -81,14 +81,41 @@ for i in perf_list:
 detail = input('paste the link here to generate a dowload link: ')
 detail = detail.replace(" ", "%20")
 print(detail)
+
+
 #r = requests.get(detail)
 r = br.open(detail)
+orders_html = br.response().read()
+soup = BeautifulSoup(orders_html,'html.parser')
+divs = soup.find_all("ul", {"class": "moviesfiles"})
+
+li = []
+
+for d in divs:
+	ul = d.find_all('a', href=True)
+	for u in ul:
+		li.append(u['href'])
+#this for loop is to remove the medi.php in the link list
 
 
+for i in li:
+    if 'mediainfo.php' in i:
+        del i
+    else:
+        down_page.append(i)
+print(down_page)
+
+
+
+
+		
+
+
+
+'''
 detail_divs = soup.find_all("ul", {"class": "moviesfiles"})
 
 down_page  = []
-
 
 for ultag in detail_divs:
     a_tag = ultag.find_all('a', href=True)
@@ -97,6 +124,7 @@ for ultag in detail_divs:
         print(a_tags)
         print(a_tags.text)
 print(down_page)
+'''
 
 
 
@@ -111,29 +139,3 @@ print(down_page)
 '''
 
         
-
-
-
-
-'''
-br.open("https://www.facebook.com/")
-
-br.select_form(nr=0)
-
-#taking user input
-email=input('enter email: ')
-password=input('enter email: ')
-
-
-br.form['email'] = email
-br.form['pass'] = password
-
-br.submit()
-print(br.title())
-if br.title() != 'Facebook':
-    print("error")
-else:
-    print("successfull")
-
-
-'''
