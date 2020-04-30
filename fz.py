@@ -2,6 +2,8 @@
 import re
 import mechanize
 from bs4 import BeautifulSoup
+import requests
+
 
 
 #to initialize the browser
@@ -40,16 +42,75 @@ soup = BeautifulSoup(orders_html,'html.parser')
 #picking the closest div to the link we want to pick by class name
 divs = soup.find_all("div", {"class": "mainbox"})
 
+
+links = []
 #iterating through all available divs produces by the search
 for div in divs:
-    row = ''
+    
     #reavealing the href property inother get link
     rows = div.find_all('a', href=True)
-    links = []
     for row in rows:
+        #print(links.append(row['href']))
+
+        #lists = ('https://fzmovies.net/'+row.get("href"))
+        #print(lists)
+        
+        #mylist = list(dict.fromkeys(lists))
+        #print(mylist)
+        
         links.append(row['href'])
         #print(row.text)
-        print(row['href'])
+        #print(row['href'])
+
+
+
+mylist = list(dict.fromkeys(links))
+perf_list = []
+for i in mylist:
+    if i=='' or 'movietags' in i:
+        del i
+    else:
+        perf_list.append(i)
+print(perf_list)
+
+for i in perf_list:
+    print('https://fzmovies.net/'+str(i))
+
+    ####################################DETAIL PAGE#######
+
+detail = input('paste the link here to generate a dowload link: ')
+detail = detail.replace(" ", "%20")
+print(detail)
+#r = requests.get(detail)
+r = br.open(detail)
+
+
+detail_divs = soup.find_all("ul", {"class": "moviesfiles"})
+
+down_page  = []
+
+
+for ultag in detail_divs:
+    a_tag = ultag.find_all('a', href=True)
+    for a_tags in a_tag:
+        down_page.append(a_tags['href'])
+        print(a_tags)
+        print(a_tags.text)
+print(down_page)
+
+
+
+
+
+'''
+
+        if len(mylist)>1:
+            print('multiple moies were discovered.')
+            print('select the link to the intended movie')
+            print(mylist)
+'''
+
+        
 
 
 
