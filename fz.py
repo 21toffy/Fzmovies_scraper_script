@@ -1,11 +1,13 @@
 
+
+
 import re
 import mechanize
 from bs4 import BeautifulSoup
 import requests
 
 
-#to initialize the browser
+    #to initialize the browser
 br = mechanize.Browser()
 br.set_handle_robots(False)
 br.addheaders = [('User-agent', 'Mozilla/5.0 (X11; U; Linux i686; en-US; rv:1.9.0.1) Gecko/2008071615 Fedora/3.0.1-1.fc9 Firefox/3.0.1')]
@@ -41,7 +43,7 @@ soup = BeautifulSoup(orders_html,'html.parser')
 #picking the closest div to the link we want to pick by class name
 divs = soup.find_all("div", {"class": "mainbox"})
 
-
+details = []
 links = []
 #iterating through all available divs produces by the search
 for div in divs:
@@ -58,10 +60,13 @@ for div in divs:
         #print(mylist)
         
         links.append(row['href'])
-        #print(row.text)
-        #print(row['href'])
+        
+    for tes in divs:
+        
+        details.append(tes.find_all(text=True))
 
 
+        
 #This eliminates all double links in the list
 mylist = list(dict.fromkeys(links))
 perf_list = []
@@ -81,9 +86,15 @@ print('you would need to pick a movie from the list in other to generate your do
 
 print('\n')
 
+for link,ident in zip(perf_list, details):
+	print('LINK:::  https://fzmovies.net/{}  :::     TITLE:{}    YEAR:{}    QUALITY:{}'.format(link, ident[1], ident[3], ident[5]))
+	print('\n')
 
-for i in perf_list:
-    print('https://fzmovies.net/'+str(i))
+
+
+
+
+
 
 ####################################DETAIL PAGE#######
 
@@ -186,6 +197,10 @@ for i in down_link:
         print('\n')
 
 
+'''
+
+
+
 
 
 
@@ -195,6 +210,7 @@ for i in down_link:
 
 #download page1 real link
 #https://fzmovies.net/download.php?downloadkey=3-17091-babee4acc6c327d44637b00a4b0a852e
+'''
 
 '''
 #generatel inspect link
