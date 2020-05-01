@@ -132,6 +132,32 @@ for d in divs:
 	#click_page = ('fzmovies.net/'+str(new_witout_loc))
 	#print(click_page)
         maybe = d['href']
+        down_page_2 = 'https://fzmovies.net/'+maybe
+
+        
+######Entering the last Download page#####
+
+#opening the page
+r = br.open(down_page_2)
+
+#reading the page
+orders_html = br.response().read()
+
+
+soup = BeautifulSoup(orders_html,'html.parser')
+
+down_link = soup.find_all("input", {"name": "download1"})
+
+print('your download links are now ready . . .')
+label = ['link 1', 'link 2', 'link 3', 'link 4', 'link 5']
+
+for i in down_link:
+    for x in label:
+        print(x)
+        print (i['value'])
+        print('\n')
+
+
 
 
 
