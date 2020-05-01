@@ -5,7 +5,6 @@ from bs4 import BeautifulSoup
 import requests
 
 
-
 #to initialize the browser
 br = mechanize.Browser()
 br.set_handle_robots(False)
@@ -98,12 +97,70 @@ for d in divs:
 #this for loop is to remove the medi.php in the link list
 
 
+down_page = []
+
 for i in li:
     if 'mediainfo.php' in i:
         del i
     else:
-        down_page.append(i)
-print(down_page)
+        down_page.append('fzmovies.net/'+str(i))
+        
+
+#raw url for download page1
+down_conf = down_page[0]
+#action to open url for downoad page 1, with http appended to it
+r = br.open('https://'+down_conf)
+
+print('download page 1 opened')
+
+orders_html = br.response().read()
+print('download page 1 read')
+
+soup = BeautifulSoup(orders_html,'html.parser')
+
+divs = soup.find_all("a", {"id": "downloadlink"})
+
+nexts = []
+for d in divs:
+        nexts.append(d['href'])
+	#ul = d.find_all('a', href=True)
+	#ulstr = str(ul[0])
+	#loc_index = ulstr.index('window.open', )
+	#quo_sem_index = ulstr.index('";', )
+	#new_with_loc = ulstr[loc_index:quo_sem_index]
+	#new_witout_loc = new_with_loc[16:]
+	#click_page = ('fzmovies.net/'+str(new_witout_loc))
+	#print(click_page)
+
+
+
+#download page 1 inspect
+#https://fzmovies.net/download.php?downloadkey=3-17091-babee4acc6c327d44637b00a4b0a852e
+
+#download page1 real link
+#https://fzmovies.net/download.php?downloadkey=3-17091-babee4acc6c327d44637b00a4b0a852e
+
+'''
+#generatel inspect link
+https://fzmovies.net/downloadkey=3-17090-798cb74fcaa4462f9f3f234605c028b0&amp;pt=jRGarGzOo2
+
+
+#reallink
+https://fzmovies.net/download.php?downloadkey=3-17090-cf6e87130cb511b55186aa3c72b12ec2&pt=jRGarGzOo2
+	
+	
+	
+#download page 1 url
+https://fzmovies.net/download1.php?downloadoptionskey=3-9166-8c71ce8438c69788c1cbeaddf485363a&pt=jRGarGzOo2
+'''
+
+
+
+
+
+
+
+
 
 
 
