@@ -62,9 +62,11 @@ for div in divs:
         #print(row['href'])
 
 
-
+#This eliminates all double links in the list
 mylist = list(dict.fromkeys(links))
 perf_list = []
+
+#this deletes the empty strings and any movie tag link in the list of links and appends the remaining to a new list
 for i in mylist:
     if i=='' or 'movietags' in i:
         del i
@@ -72,33 +74,50 @@ for i in mylist:
         perf_list.append(i)
 print(perf_list)
 
-for i in perf_list:
-    print('https://fzmovies.net/'+str(i))
+#for i in perf_list:
+#    print('https://fzmovies.net/'+str(i))
 
-    ####################################DETAIL PAGE#######
+####################################DETAIL PAGE#######
+print('opps multiple recults came back for your Query...')
+print('you would need to pick a movie from the list in other to generate your download link')
 
-detail = input('paste the link here to generate a dowload link: ')
+detail = input('copy and paste the link here to generate a dowload link::: ')
+
+#this eliminates all the white spaces and replace then with 20% in accordance to fzmovies url pattern
 detail = detail.replace(" ", "%20")
+
+print('if you did not coppy this link well this code will break')
 print(detail)
 
 
 #r = requests.get(detail)
+
+#for opening detail page
 r = br.open(detail)
+
+#to read and save the page
 orders_html = br.response().read()
+
 soup = BeautifulSoup(orders_html,'html.parser')
+
+#filltering ul 
 divs = soup.find_all("ul", {"class": "moviesfiles"})
 
+#initializing an empty array
 li = []
 
+#  this for loop is for filltering all a tags in the ul tag fillltered before and appending the results to a new array
 for d in divs:
 	ul = d.find_all('a', href=True)
 	for u in ul:
 		li.append(u['href'])
-#this for loop is to remove the medi.php in the link list
+		
 
-
+#initializing a new array
 down_page = []
 
+
+#this for loop is to remove the media.php in the link array and form the download page link
 for i in li:
     if 'mediainfo.php' in i:
         del i
@@ -111,10 +130,9 @@ down_conf = down_page[0]
 #action to open url for downoad page 1, with http appended to it
 r = br.open('https://'+down_conf)
 
-print('download page 1 opened')
+
 
 orders_html = br.response().read()
-print('download page 1 read')
 
 soup = BeautifulSoup(orders_html,'html.parser')
 
