@@ -131,6 +131,8 @@ for d in divs:
 	#new_witout_loc = new_with_loc[16:]
 	#click_page = ('fzmovies.net/'+str(new_witout_loc))
 	#print(click_page)
+        maybe = d['href']
+
 
 
 
