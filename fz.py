@@ -72,23 +72,35 @@ for i in mylist:
         del i
     else:
         perf_list.append(i)
-print(perf_list)
-
-#for i in perf_list:
-#    print('https://fzmovies.net/'+str(i))
-
-####################################DETAIL PAGE#######
+        
 print('opps multiple recults came back for your Query...')
+
+print('\n')
+
 print('you would need to pick a movie from the list in other to generate your download link')
 
+print('\n')
+
+
+for i in perf_list:
+    print('https://fzmovies.net/'+str(i))
+
+####################################DETAIL PAGE#######
+
 detail = input('copy and paste the link here to generate a dowload link::: ')
+
+print('\n')
 
 #this eliminates all the white spaces and replace then with 20% in accordance to fzmovies url pattern
 detail = detail.replace(" ", "%20")
 
 print('if you did not coppy this link well this code will break')
+
+print('\n')
+
 print(detail)
 
+print('\n')
 
 #r = requests.get(detail)
 
@@ -170,8 +182,6 @@ print('your download links are now ready . . .')
 label = ['link 1', 'link 2', 'link 3', 'link 4', 'link 5']
 
 for i in down_link:
-    for x in label:
-        print(x)
         print (i['value'])
         print('\n')
 
