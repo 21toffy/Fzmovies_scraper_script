@@ -51,13 +51,6 @@ for div in divs:
     #reavealing the href property inother get link
     rows = div.find_all('a', href=True)
     for row in rows:
-        #print(links.append(row['href']))
-
-        #lists = ('https://fzmovies.net/'+row.get("href"))
-        #print(lists)
-        
-        #mylist = list(dict.fromkeys(lists))
-        #print(mylist)
         
         links.append(row['href'])
         
@@ -164,14 +157,6 @@ divs = soup.find_all("a", {"id": "downloadlink"})
 nexts = []
 for d in divs:
         nexts.append(d['href'])
-	#ul = d.find_all('a', href=True)
-	#ulstr = str(ul[0])
-	#loc_index = ulstr.index('window.open', )
-	#quo_sem_index = ulstr.index('";', )
-	#new_with_loc = ulstr[loc_index:quo_sem_index]
-	#new_witout_loc = new_with_loc[16:]
-	#click_page = ('fzmovies.net/'+str(new_witout_loc))
-	#print(click_page)
         maybe = d['href']
         down_page_2 = 'https://fzmovies.net/'+maybe
 
